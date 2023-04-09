@@ -1,8 +1,9 @@
 import React, {useState} from 'react';
-import {View, Text, StyleSheet, FlatList} from 'react-native';
+import {View, Text, StyleSheet, FlatList, Alert} from 'react-native';
 import Header from './components/Header';
 import ListItem from './components/ListItem';
 import uuid from 'react-native-uuid';
+import AddItem from './components/AddItem';
 
 const App = () => {
 
@@ -18,9 +19,21 @@ const App = () => {
       return prevItems.filter(item => item.id !== id)
     })
   }
+
+  const addItem = ( textValue:string ) =>{
+    if(!textValue){
+      Alert.alert('Error','Please add something',[{text:'Got It'}])
+      return 
+    }
+    setItems( prevItems => {
+      return [...prevItems,{id: uuid.v4(), text:textValue}]
+    })
+  }
+
   return (
     <View style={styles.container}>
       <Header />
+      <AddItem addItem={addItem}/>
       <FlatList data={items} renderItem={({item})=>
        <ListItem item={item} deleteItem={deleteItem}/> } />
     </View>
