@@ -1,22 +1,23 @@
 import React from 'react'
 import { Text, StyleSheet, TouchableOpacity, View } from 'react-native'
-import Icon from 'react-native-vector-icons/FontAwesome';
+// import Icon from 'react-native-vector-icons/FontAwesome';
 
 interface Item{
   item:{
     id:string | number[],
     text:string
-  }
+  },
+  deleteItem: ( id: string | number[] ) => void
 }
 
-const ListItem = ( {item}:Item ) => {
+const ListItem = ( {item, deleteItem}:Item ) => {
   return (
     <TouchableOpacity style={styles.listItem}>
       <View style={styles.listItemView}>
         <Text style={styles.listItemText}>
           {item.text}
         </Text>
-        <Icon name='facebook' size={20} color='firebrick' />
+        <Text style={styles.Cross}onPress={()=>deleteItem(item.id)} >X </Text>
       </View>
 
     </TouchableOpacity>
@@ -39,6 +40,10 @@ const styles = StyleSheet.create({
 
   listItemText:{
     fontSize: 18
+  },
+  Cross:{
+    fontSize:18,
+    color:'red'
   }
 })
 

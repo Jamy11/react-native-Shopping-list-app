@@ -12,10 +12,17 @@ const App = () => {
     { id: uuid.v4(), text:'Bread' },
     { id: uuid.v4(), text:'Juice' },
   ])
+
+  const deleteItem = (id:string|number[]) =>{
+    setItems( prevItems => {
+      return prevItems.filter(item => item.id !== id)
+    })
+  }
   return (
     <View style={styles.container}>
       <Header />
-      <FlatList data={items} renderItem={({item})=> <ListItem item={item} />} />
+      <FlatList data={items} renderItem={({item})=>
+       <ListItem item={item} deleteItem={deleteItem}/> } />
     </View>
   );
 };
